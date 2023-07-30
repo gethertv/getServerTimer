@@ -1,48 +1,65 @@
-package dev.gether.getboostdrop.utils;
+package dev.gether.getservertimer.utils;
 
-import dev.gether.getboostdrop.GetBoostDrop;
+import dev.gether.getservertimer.GetServerTimer;
+import org.bukkit.configuration.file.FileConfiguration;
 
 import java.text.DecimalFormat;
+import java.time.Duration;
+import java.time.LocalDateTime;
 
 public class Timer {
 
-    // "{d}{h}{m}{s}"
-    static String format = GetBoostDrop.getInstance().getConfig().getString("format");
-    static String day = GetBoostDrop.getInstance().getConfig().getString("day");
-    static String hour = GetBoostDrop.getInstance().getConfig().getString("hour");
-    static String min = GetBoostDrop.getInstance().getConfig().getString("min");
-    static String sec = GetBoostDrop.getInstance().getConfig().getString("sec");
 
-    static DecimalFormat df = new DecimalFormat("00");
-    public static String getTime(int second)
+
+    private String format;
+    private String day;
+    private String hour;
+    private String min;
+    private String sec;
+
+    private DecimalFormat df = new DecimalFormat("00");
+
+    public Timer()
     {
-        boolean day = false;
-        boolean hour = false;
-        boolean min = false;
+        FileConfiguration config = GetServerTimer.getInstance().getConfig();
+        this.format = config.getString("format");
+        this.day = config.getString("day");
+        this.hour = config.getString("hour");
+        this.min = config.getString("min");
+        this.sec = config.getString("sec");
+    }
 
-        if(second>=86400)
-            day = true;
+    public String getTimer(LocalDateTime startDate)
+    {
+        LocalDateTime now = LocalDateTime.now();
+        Duration duration = Duration.between(startDate, now);
+        long days = duration.toDays();
+        long hours = duration.toHours() % 24;
+        long minutes = duration.toMinutes() % 60;
+        long seconds = duration.getSeconds() % 60;
 
-        if(second>=3600)
-            hour = true;
+        boolean isDay = false;
+        boolean isHour = false;
+        boolean isMin = false;
 
-        if(second>=60)
-            min = true;
+        long secondsDur = duration.getSeconds();
+        if(secondsDur>=86400)
+            isDay = true;
 
-        String format = Timer.format;
+        if(secondsDur>=3600)
+            isHour = true;
 
-        String d = Timer.day;
-        String h = Timer.hour;
-        String m = Timer.min;
-        String s = Timer.sec;
+        if(secondsDur>=60)
+            isMin = true;
 
         format = format
-                .replace("{d}", day ? d.replace("{day}", df.format(second/86400)) : "")
-                .replace("{h}", hour ? h.replace("{hour}", df.format((second/3600)%24)) : "")
-                .replace("{m}", min ? m.replace("{min}", df.format((second/60)%60)) : "")
-                .replace("{s}", s.replace("{sec}", df.format(second%60)));
+                .replace("{d}", isDay ? day.replace("{day}", df.format(days)) : "")
+                .replace("{h}", isHour ? hour.replace("{hour}", df.format(hours)) : "")
+                .replace("{m}", isMin ? min.replace("{min}", df.format(minutes)) : "")
+                .replace("{s}", sec.replace("{sec}", df.format(seconds)));
 
 
         return ColorFixer.addColors(format);
     }
+
 }

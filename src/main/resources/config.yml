@@ -1,0 +1,15 @@
+# %getserver_timer_lobby%
+start:
+  lobby:
+    rok: 2023
+    miesiac: 4
+    dzien: 21
+    godzina: 18
+    minuta: 00
+
+format: "{d}{h}{m}{s}"
+
+sec: " {sec}s"
+min: " {min}m"
+hour: " {hour}h"
+day: " {day}d"

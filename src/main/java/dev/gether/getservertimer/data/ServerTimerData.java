@@ -1,2 +1,30 @@
-package dev.gether.getservertimer.data;public class ServerTimerData {
+package dev.gether.getservertimer.data;
+
+import dev.gether.getservertimer.GetServerTimer;
+
+import java.time.LocalDateTime;
+
+public class ServerTimerData {
+
+    private String name;
+    private LocalDateTime startTime;
+
+    public ServerTimerData(String name, GetServerTimer plugin) {
+        this.name = name;
+        this.startTime = LocalDateTime.of
+                (plugin.getConfig().getInt("start."+name+".rok"),
+                    plugin.getConfig().getInt("start."+name+".miesiac"),
+                    plugin.getConfig().getInt("start."+name+".dzien"),
+                    plugin.getConfig().getInt("start."+name+".godzina"),
+                    plugin.getConfig().getInt("start."+name+".minuta")
+                );
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
 }

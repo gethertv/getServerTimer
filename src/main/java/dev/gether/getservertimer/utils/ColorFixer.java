@@ -1,4 +1,4 @@
-package dev.gether.autotask.utils;
+package dev.gether.getservertimer.utils;
 
 import net.md_5.bungee.api.ChatColor;
 
