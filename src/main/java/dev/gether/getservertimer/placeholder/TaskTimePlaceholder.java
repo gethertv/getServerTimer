@@ -6,15 +6,11 @@ import dev.gether.getservertimer.utils.ColorFixer;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.entity.Player;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.text.DecimalFormat;
-import java.text.Format;
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
+
 
 public class TaskTimePlaceholder extends PlaceholderExpansion {
 
@@ -38,6 +34,8 @@ public class TaskTimePlaceholder extends PlaceholderExpansion {
         if(identifier.startsWith("timer")) {
             String[] args = identifier.split("_");
             ServerTimerData server = GetServerTimer.getInstance().getData().get(args[1]);
+            Bukkit.broadcastMessage("#"+server.getName());
+            Bukkit.broadcastMessage("#"+args[1]);
             if(server!=null)
             {
                 return GetServerTimer.getInstance().getTimer().getTimer(server.getStartTime());

@@ -52,6 +52,7 @@ public class Timer {
         if(secondsDur>=60)
             isMin = true;
 
+        String format = this.format;
         format = format
                 .replace("{d}", isDay ? day.replace("{day}", df.format(days)) : "")
                 .replace("{h}", isHour ? hour.replace("{hour}", df.format(hours)) : "")
