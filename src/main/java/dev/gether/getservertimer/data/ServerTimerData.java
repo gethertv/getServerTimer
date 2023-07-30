@@ -12,7 +12,6 @@ public class ServerTimerData {
 
     public ServerTimerData(String name, GetServerTimer plugin) {
         this.name = name;
-        Bukkit.broadcastMessage("#"+name);
         this.startTime = LocalDateTime.of
                 (plugin.getConfig().getInt("start."+name+".rok"),
                     plugin.getConfig().getInt("start."+name+".miesiac"),

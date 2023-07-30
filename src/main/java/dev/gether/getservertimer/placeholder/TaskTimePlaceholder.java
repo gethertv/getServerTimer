@@ -34,8 +34,6 @@ public class TaskTimePlaceholder extends PlaceholderExpansion {
         if(identifier.startsWith("timer")) {
             String[] args = identifier.split("_");
             ServerTimerData server = GetServerTimer.getInstance().getData().get(args[1]);
-            Bukkit.broadcastMessage("#"+server.getName());
-            Bukkit.broadcastMessage("#"+args[1]);
             if(server!=null)
             {
                 return GetServerTimer.getInstance().getTimer().getTimer(server.getStartTime());
