@@ -1,0 +1,4 @@
+name: getServerTimer
+version: '${project.version}'
+main: dev.gether.getservertimer.GetServerTimer
+api-version: 1.16
